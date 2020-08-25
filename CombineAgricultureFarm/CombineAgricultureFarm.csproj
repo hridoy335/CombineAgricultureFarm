@@ -182,6 +182,14 @@
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Validation\ClientInformation.cs" />
+    <Compile Include="Models\Validation\CropInformation.cs" />
+    <Compile Include="Models\Validation\CropSell.cs" />
+    <Compile Include="Models\Validation\CropStorage.cs" />
+    <Compile Include="Models\Validation\FarmInformation.cs" />
+    <Compile Include="Models\Validation\FarmingDetailforCrop.cs" />
+    <Compile Include="Models\Validation\FarmingSessionInfo.cs" />
+    <Compile Include="Models\Validation\FarmingType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\CowImage\" />
+    <Folder Include="Image\CropImage\" />
+    <Folder Include="Image\FishImage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -13,6 +13,7 @@
     <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_ClientInformation" FromRole="ClientInformation" ToRole="FarmInformation" />
+    <Property Name="ClientType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="CropInformation">
     <Key>

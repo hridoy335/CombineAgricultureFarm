@@ -12,6 +12,7 @@
     <Property Name="FurmName" Type="varchar" MaxLength="500" />
     <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="ClientType" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CropInformation">
     <Key>

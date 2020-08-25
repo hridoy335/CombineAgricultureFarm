@@ -197,6 +197,44 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dist\css\site.min.css" />
+    <Content Include="Content\dist\fonts\angularicons.svg" />
+    <Content Include="Content\dist\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\dist\img\ascii-logo.gif" />
+    <Content Include="Content\dist\img\bootflat-ui-kit.jpg" />
+    <Content Include="Content\dist\img\check_flat\default.png" />
+    <Content Include="Content\dist\img\design.png" />
+    <Content Include="Content\dist\img\divider.png" />
+    <Content Include="Content\dist\img\fast.png" />
+    <Content Include="Content\dist\img\feature-bootstrap.png" />
+    <Content Include="Content\dist\img\feature-css.png" />
+    <Content Include="Content\dist\img\feature-lightweight.png" />
+    <Content Include="Content\dist\img\feature-mobile.png" />
+    <Content Include="Content\dist\img\footer-logo.png" />
+    <Content Include="Content\dist\img\github.png" />
+    <Content Include="Content\dist\img\index.png" />
+    <Content Include="Content\dist\img\Jumbotron.jpg" />
+    <Content Include="Content\dist\img\logo-index.png" />
+    <Content Include="Content\dist\img\logo.png" />
+    <Content Include="Content\dist\img\photo-1.jpg" />
+    <Content Include="Content\dist\img\photo-2.jpg" />
+    <Content Include="Content\dist\img\photo-3.jpg" />
+    <Content Include="Content\dist\img\photo-4.jpg" />
+    <Content Include="Content\dist\img\prototyping.png" />
+    <Content Include="Content\dist\img\screensho1.png" />
+    <Content Include="Content\dist\img\screenshot2.png" />
+    <Content Include="Content\dist\img\share.gif" />
+    <Content Include="Content\dist\img\slider1.jpg" />
+    <Content Include="Content\dist\img\slider2.jpg" />
+    <Content Include="Content\dist\img\slider3.jpg" />
+    <Content Include="Content\dist\img\thumbnail-1.jpg" />
+    <Content Include="Content\dist\img\thumbnail-2.jpg" />
+    <Content Include="Content\dist\img\thumbnail-3.jpg" />
+    <Content Include="Content\dist\img\thumbnail-4.jpg" />
+    <Content Include="Content\dist\img\together.png" />
+    <Content Include="Content\dist\img\wild_flowers.png" />
+    <Content Include="Content\dist\js\site.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -220,6 +258,18 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\dist\fonts\angularicons.eot" />
+    <Content Include="Content\dist\fonts\angularicons.ttf" />
+    <Content Include="Content\dist\fonts\angularicons.woff" />
+    <Content Include="Content\dist\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\dist\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\dist\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\dist\fonts\FontAwesome.otf" />
+    <Content Include="Content\dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\dist\img\check_flat\default.psd" />
+    <Content Include="Content\dist\js\site.min.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -251,6 +301,7 @@
     <Content Include="Views\ClientInformations\Edit.cshtml" />
     <Content Include="Views\ClientInformations\Index.cshtml" />
     <Content Include="Views\Client\SignUp.cshtml" />
+    <Content Include="Views\Client\SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

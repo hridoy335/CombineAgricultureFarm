@@ -4,6 +4,7 @@
     <EntitySetMapping Name="ClientInformations">
       <EntityTypeMapping TypeName="CombineAgricultureFarmModel.ClientInformation">
         <MappingFragment StoreEntitySet="ClientInformation">
+          <ScalarProperty Name="ClientType" ColumnName="ClientType" />
           <ScalarProperty Name="ClientId" ColumnName="ClientId" />
           <ScalarProperty Name="ClientName" ColumnName="ClientName" />
           <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />

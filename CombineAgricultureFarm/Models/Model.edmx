@@ -1,0 +1,689 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CombineAgricultureFarmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClientInformation">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClientEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientMobile" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientAddress" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FurmName" Type="varchar" MaxLength="500" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CropInformation">
+          <Key>
+            <PropertyRef Name="CropInfod" />
+          </Key>
+          <Property Name="CropInfod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CropName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CropInformation" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CropMedicine" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CropPicture" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CropSell">
+          <Key>
+            <PropertyRef Name="CropSellId" />
+          </Key>
+          <Property Name="CropSellId" Type="int" Nullable="false" />
+          <Property Name="CropStorageId" Type="int" Nullable="false" />
+          <Property Name="CropsellDate" Type="datetime" Nullable="false" />
+          <Property Name="TotalCropSell" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CropStorage">
+          <Key>
+            <PropertyRef Name="CropStorageId" />
+          </Key>
+          <Property Name="CropStorageId" Type="int" Nullable="false" />
+          <Property Name="FarmingDetailId" Type="int" Nullable="false" />
+          <Property Name="CropStorage" Type="int" Nullable="false" />
+          <Property Name="CropSell" Type="int" />
+          <Property Name="StorageDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FarmInformation">
+          <Key>
+            <PropertyRef Name="FarminformationId" />
+          </Key>
+          <Property Name="FarminformationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionInfoId" Type="int" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="FurmingTypeId" Type="int" Nullable="false" />
+          <Property Name="CropInfod" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FarmingDetailforCrop">
+          <Key>
+            <PropertyRef Name="FarmingDetailId" />
+          </Key>
+          <Property Name="FarmingDetailId" Type="int" Nullable="false" />
+          <Property Name="FarminformationId" Type="int" Nullable="false" />
+          <Property Name="FieldSize" Type="int" />
+          <Property Name="LandCultivatioCost" Type="int" />
+          <Property Name="SeedsCost" Type="int" />
+          <Property Name="PlantationCost" Type="int" />
+          <Property Name="WedsCostFristTime" Type="int" />
+          <Property Name="WedsCostSecondTime" Type="int" />
+          <Property Name="FertilizerCost" Type="int" />
+          <Property Name="CutingHarvestProcessCost" Type="int" />
+          <Property Name="ExteraCost" Type="int" />
+          <Property Name="GattotalCrop" Type="int" />
+        </EntityType>
+        <EntityType Name="FarmingSessionInfo">
+          <Key>
+            <PropertyRef Name="SessionInfoId" />
+          </Key>
+          <Property Name="SessionInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionInfoName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FarmingType">
+          <Key>
+            <PropertyRef Name="FarmingTypeId" />
+          </Key>
+          <Property Name="FarmingTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FarmingTyeName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_CropSell_CropStorage">
+          <End Role="CropStorage" Type="Self.CropStorage" Multiplicity="1" />
+          <End Role="CropSell" Type="Self.CropSell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CropStorage">
+              <PropertyRef Name="CropStorageId" />
+            </Principal>
+            <Dependent Role="CropSell">
+              <PropertyRef Name="CropStorageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CropStorage_FurmingDetailforCrop">
+          <End Role="FarmingDetailforCrop" Type="Self.FarmingDetailforCrop" Multiplicity="1" />
+          <End Role="CropStorage" Type="Self.CropStorage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FarmingDetailforCrop">
+              <PropertyRef Name="FarmingDetailId" />
+            </Principal>
+            <Dependent Role="CropStorage">
+              <PropertyRef Name="FarmingDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmInformation_ClientInformation">
+          <End Role="ClientInformation" Type="Self.ClientInformation" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientInformation">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmInformation_CropInformation">
+          <End Role="CropInformation" Type="Self.CropInformation" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CropInformation">
+              <PropertyRef Name="CropInfod" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="CropInfod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmInformation_FurmingSessionInfo">
+          <End Role="FarmingSessionInfo" Type="Self.FarmingSessionInfo" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FarmingSessionInfo">
+              <PropertyRef Name="SessionInfoId" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="SessionInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmInformation_FurmingType">
+          <End Role="FarmingType" Type="Self.FarmingType" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FarmingType">
+              <PropertyRef Name="FarmingTypeId" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="FurmingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmingDetailforCrop_FurmInformation">
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="1" />
+          <End Role="FarmingDetailforCrop" Type="Self.FarmingDetailforCrop" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FarmInformation">
+              <PropertyRef Name="FarminformationId" />
+            </Principal>
+            <Dependent Role="FarmingDetailforCrop">
+              <PropertyRef Name="FarmingDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CombineAgricultureFarmModelStoreContainer">
+          <EntitySet Name="ClientInformation" EntityType="Self.ClientInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CropInformation" EntityType="Self.CropInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CropSell" EntityType="Self.CropSell" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CropStorage" EntityType="Self.CropStorage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FarmInformation" EntityType="Self.FarmInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FarmingDetailforCrop" EntityType="Self.FarmingDetailforCrop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FarmingSessionInfo" EntityType="Self.FarmingSessionInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FarmingType" EntityType="Self.FarmingType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CropSell_CropStorage" Association="Self.FK_CropSell_CropStorage">
+            <End Role="CropStorage" EntitySet="CropStorage" />
+            <End Role="CropSell" EntitySet="CropSell" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CropStorage_FurmingDetailforCrop" Association="Self.FK_CropStorage_FurmingDetailforCrop">
+            <End Role="FarmingDetailforCrop" EntitySet="FarmingDetailforCrop" />
+            <End Role="CropStorage" EntitySet="CropStorage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmInformation_ClientInformation" Association="Self.FK_FurmInformation_ClientInformation">
+            <End Role="ClientInformation" EntitySet="ClientInformation" />
+            <End Role="FarmInformation" EntitySet="FarmInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmInformation_CropInformation" Association="Self.FK_FurmInformation_CropInformation">
+            <End Role="CropInformation" EntitySet="CropInformation" />
+            <End Role="FarmInformation" EntitySet="FarmInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmInformation_FurmingSessionInfo" Association="Self.FK_FurmInformation_FurmingSessionInfo">
+            <End Role="FarmingSessionInfo" EntitySet="FarmingSessionInfo" />
+            <End Role="FarmInformation" EntitySet="FarmInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmInformation_FurmingType" Association="Self.FK_FurmInformation_FurmingType">
+            <End Role="FarmingType" EntitySet="FarmingType" />
+            <End Role="FarmInformation" EntitySet="FarmInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmingDetailforCrop_FurmInformation" Association="Self.FK_FurmingDetailforCrop_FurmInformation">
+            <End Role="FarmInformation" EntitySet="FarmInformation" />
+            <End Role="FarmingDetailforCrop" EntitySet="FarmingDetailforCrop" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CombineAgricultureFarmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClientInformation">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FurmName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_ClientInformation" FromRole="ClientInformation" ToRole="FarmInformation" />
+        </EntityType>
+        <EntityType Name="CropInformation">
+          <Key>
+            <PropertyRef Name="CropInfod" />
+          </Key>
+          <Property Name="CropInfod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CropName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CropInformation1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CropMedicine" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CropPicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_CropInformation" FromRole="CropInformation" ToRole="FarmInformation" />
+        </EntityType>
+        <EntityType Name="CropSell">
+          <Key>
+            <PropertyRef Name="CropSellId" />
+          </Key>
+          <Property Name="CropSellId" Type="Int32" Nullable="false" />
+          <Property Name="CropStorageId" Type="Int32" Nullable="false" />
+          <Property Name="CropsellDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TotalCropSell" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CropStorage" Relationship="Self.FK_CropSell_CropStorage" FromRole="CropSell" ToRole="CropStorage" />
+        </EntityType>
+        <EntityType Name="CropStorage">
+          <Key>
+            <PropertyRef Name="CropStorageId" />
+          </Key>
+          <Property Name="CropStorageId" Type="Int32" Nullable="false" />
+          <Property Name="FarmingDetailId" Type="Int32" Nullable="false" />
+          <Property Name="CropStorage1" Type="Int32" Nullable="false" />
+          <Property Name="CropSell" Type="Int32" />
+          <Property Name="StorageDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CropSells" Relationship="Self.FK_CropSell_CropStorage" FromRole="CropStorage" ToRole="CropSell" />
+          <NavigationProperty Name="FarmingDetailforCrop" Relationship="Self.FK_CropStorage_FurmingDetailforCrop" FromRole="CropStorage" ToRole="FarmingDetailforCrop" />
+        </EntityType>
+        <EntityType Name="FarmInformation">
+          <Key>
+            <PropertyRef Name="FarminformationId" />
+          </Key>
+          <Property Name="FarminformationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionInfoId" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="FurmingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CropInfod" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClientInformation" Relationship="Self.FK_FurmInformation_ClientInformation" FromRole="FarmInformation" ToRole="ClientInformation" />
+          <NavigationProperty Name="CropInformation" Relationship="Self.FK_FurmInformation_CropInformation" FromRole="FarmInformation" ToRole="CropInformation" />
+          <NavigationProperty Name="FarmingSessionInfo" Relationship="Self.FK_FurmInformation_FurmingSessionInfo" FromRole="FarmInformation" ToRole="FarmingSessionInfo" />
+          <NavigationProperty Name="FarmingType" Relationship="Self.FK_FurmInformation_FurmingType" FromRole="FarmInformation" ToRole="FarmingType" />
+          <NavigationProperty Name="FarmingDetailforCrop" Relationship="Self.FK_FurmingDetailforCrop_FurmInformation" FromRole="FarmInformation" ToRole="FarmingDetailforCrop" />
+        </EntityType>
+        <EntityType Name="FarmingDetailforCrop">
+          <Key>
+            <PropertyRef Name="FarmingDetailId" />
+          </Key>
+          <Property Name="FarmingDetailId" Type="Int32" Nullable="false" />
+          <Property Name="FarminformationId" Type="Int32" Nullable="false" />
+          <Property Name="FieldSize" Type="Int32" />
+          <Property Name="LandCultivatioCost" Type="Int32" />
+          <Property Name="SeedsCost" Type="Int32" />
+          <Property Name="PlantationCost" Type="Int32" />
+          <Property Name="WedsCostFristTime" Type="Int32" />
+          <Property Name="WedsCostSecondTime" Type="Int32" />
+          <Property Name="FertilizerCost" Type="Int32" />
+          <Property Name="CutingHarvestProcessCost" Type="Int32" />
+          <Property Name="ExteraCost" Type="Int32" />
+          <Property Name="GattotalCrop" Type="Int32" />
+          <NavigationProperty Name="CropStorages" Relationship="Self.FK_CropStorage_FurmingDetailforCrop" FromRole="FarmingDetailforCrop" ToRole="CropStorage" />
+          <NavigationProperty Name="FarmInformation" Relationship="Self.FK_FurmingDetailforCrop_FurmInformation" FromRole="FarmingDetailforCrop" ToRole="FarmInformation" />
+        </EntityType>
+        <EntityType Name="FarmingSessionInfo">
+          <Key>
+            <PropertyRef Name="SessionInfoId" />
+          </Key>
+          <Property Name="SessionInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionInfoName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_FurmingSessionInfo" FromRole="FarmingSessionInfo" ToRole="FarmInformation" />
+        </EntityType>
+        <EntityType Name="FarmingType">
+          <Key>
+            <PropertyRef Name="FarmingTypeId" />
+          </Key>
+          <Property Name="FarmingTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FarmingTyeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_FurmingType" FromRole="FarmingType" ToRole="FarmInformation" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_FurmInformation_ClientInformation">
+          <End Role="ClientInformation" Type="Self.ClientInformation" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientInformation">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmInformation_CropInformation">
+          <End Role="CropInformation" Type="Self.CropInformation" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CropInformation">
+              <PropertyRef Name="CropInfod" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="CropInfod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CropSell_CropStorage">
+          <End Role="CropStorage" Type="Self.CropStorage" Multiplicity="1" />
+          <End Role="CropSell" Type="Self.CropSell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CropStorage">
+              <PropertyRef Name="CropStorageId" />
+            </Principal>
+            <Dependent Role="CropSell">
+              <PropertyRef Name="CropStorageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CropStorage_FurmingDetailforCrop">
+          <End Role="FarmingDetailforCrop" Type="Self.FarmingDetailforCrop" Multiplicity="1" />
+          <End Role="CropStorage" Type="Self.CropStorage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FarmingDetailforCrop">
+              <PropertyRef Name="FarmingDetailId" />
+            </Principal>
+            <Dependent Role="CropStorage">
+              <PropertyRef Name="FarmingDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmInformation_FurmingSessionInfo">
+          <End Role="FarmingSessionInfo" Type="Self.FarmingSessionInfo" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FarmingSessionInfo">
+              <PropertyRef Name="SessionInfoId" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="SessionInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmInformation_FurmingType">
+          <End Role="FarmingType" Type="Self.FarmingType" Multiplicity="1" />
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FarmingType">
+              <PropertyRef Name="FarmingTypeId" />
+            </Principal>
+            <Dependent Role="FarmInformation">
+              <PropertyRef Name="FurmingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FurmingDetailforCrop_FurmInformation">
+          <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="1" />
+          <End Role="FarmingDetailforCrop" Type="Self.FarmingDetailforCrop" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FarmInformation">
+              <PropertyRef Name="FarminformationId" />
+            </Principal>
+            <Dependent Role="FarmingDetailforCrop">
+              <PropertyRef Name="FarmingDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CombineAgricultureFarmEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClientInformations" EntityType="Self.ClientInformation" />
+          <EntitySet Name="CropInformations" EntityType="Self.CropInformation" />
+          <EntitySet Name="CropSells" EntityType="Self.CropSell" />
+          <EntitySet Name="CropStorages" EntityType="Self.CropStorage" />
+          <EntitySet Name="FarmInformations" EntityType="Self.FarmInformation" />
+          <EntitySet Name="FarmingDetailforCrops" EntityType="Self.FarmingDetailforCrop" />
+          <EntitySet Name="FarmingSessionInfoes" EntityType="Self.FarmingSessionInfo" />
+          <EntitySet Name="FarmingTypes" EntityType="Self.FarmingType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_FurmInformation_ClientInformation" Association="Self.FK_FurmInformation_ClientInformation">
+            <End Role="ClientInformation" EntitySet="ClientInformations" />
+            <End Role="FarmInformation" EntitySet="FarmInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmInformation_CropInformation" Association="Self.FK_FurmInformation_CropInformation">
+            <End Role="CropInformation" EntitySet="CropInformations" />
+            <End Role="FarmInformation" EntitySet="FarmInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CropSell_CropStorage" Association="Self.FK_CropSell_CropStorage">
+            <End Role="CropStorage" EntitySet="CropStorages" />
+            <End Role="CropSell" EntitySet="CropSells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CropStorage_FurmingDetailforCrop" Association="Self.FK_CropStorage_FurmingDetailforCrop">
+            <End Role="FarmingDetailforCrop" EntitySet="FarmingDetailforCrops" />
+            <End Role="CropStorage" EntitySet="CropStorages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmInformation_FurmingSessionInfo" Association="Self.FK_FurmInformation_FurmingSessionInfo">
+            <End Role="FarmingSessionInfo" EntitySet="FarmingSessionInfoes" />
+            <End Role="FarmInformation" EntitySet="FarmInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmInformation_FurmingType" Association="Self.FK_FurmInformation_FurmingType">
+            <End Role="FarmingType" EntitySet="FarmingTypes" />
+            <End Role="FarmInformation" EntitySet="FarmInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FurmingDetailforCrop_FurmInformation" Association="Self.FK_FurmingDetailforCrop_FurmInformation">
+            <End Role="FarmInformation" EntitySet="FarmInformations" />
+            <End Role="FarmingDetailforCrop" EntitySet="FarmingDetailforCrops" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CombineAgricultureFarmModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CombineAgricultureFarmModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CombineAgricultureFarmModelStoreContainer" CdmEntityContainer="CombineAgricultureFarmEntities">
+          <EntitySetMapping Name="ClientInformations">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.ClientInformation">
+              <MappingFragment StoreEntitySet="ClientInformation">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="ClientMobile" ColumnName="ClientMobile" />
+                <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+                <ScalarProperty Name="FurmName" ColumnName="FurmName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CropInformations">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.CropInformation">
+              <MappingFragment StoreEntitySet="CropInformation">
+                <ScalarProperty Name="CropInfod" ColumnName="CropInfod" />
+                <ScalarProperty Name="CropName" ColumnName="CropName" />
+                <ScalarProperty Name="CropInformation1" ColumnName="CropInformation" />
+                <ScalarProperty Name="CropMedicine" ColumnName="CropMedicine" />
+                <ScalarProperty Name="CropPicture" ColumnName="CropPicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CropSells">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.CropSell">
+              <MappingFragment StoreEntitySet="CropSell">
+                <ScalarProperty Name="CropSellId" ColumnName="CropSellId" />
+                <ScalarProperty Name="CropStorageId" ColumnName="CropStorageId" />
+                <ScalarProperty Name="CropsellDate" ColumnName="CropsellDate" />
+                <ScalarProperty Name="TotalCropSell" ColumnName="TotalCropSell" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CropStorages">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.CropStorage">
+              <MappingFragment StoreEntitySet="CropStorage">
+                <ScalarProperty Name="CropStorageId" ColumnName="CropStorageId" />
+                <ScalarProperty Name="FarmingDetailId" ColumnName="FarmingDetailId" />
+                <ScalarProperty Name="CropStorage1" ColumnName="CropStorage" />
+                <ScalarProperty Name="CropSell" ColumnName="CropSell" />
+                <ScalarProperty Name="StorageDate" ColumnName="StorageDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FarmInformations">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.FarmInformation">
+              <MappingFragment StoreEntitySet="FarmInformation">
+                <ScalarProperty Name="FarminformationId" ColumnName="FarminformationId" />
+                <ScalarProperty Name="SessionInfoId" ColumnName="SessionInfoId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="FurmingTypeId" ColumnName="FurmingTypeId" />
+                <ScalarProperty Name="CropInfod" ColumnName="CropInfod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FarmingDetailforCrops">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.FarmingDetailforCrop">
+              <MappingFragment StoreEntitySet="FarmingDetailforCrop">
+                <ScalarProperty Name="FarmingDetailId" ColumnName="FarmingDetailId" />
+                <ScalarProperty Name="FarminformationId" ColumnName="FarminformationId" />
+                <ScalarProperty Name="FieldSize" ColumnName="FieldSize" />
+                <ScalarProperty Name="LandCultivatioCost" ColumnName="LandCultivatioCost" />
+                <ScalarProperty Name="SeedsCost" ColumnName="SeedsCost" />
+                <ScalarProperty Name="PlantationCost" ColumnName="PlantationCost" />
+                <ScalarProperty Name="WedsCostFristTime" ColumnName="WedsCostFristTime" />
+                <ScalarProperty Name="WedsCostSecondTime" ColumnName="WedsCostSecondTime" />
+                <ScalarProperty Name="FertilizerCost" ColumnName="FertilizerCost" />
+                <ScalarProperty Name="CutingHarvestProcessCost" ColumnName="CutingHarvestProcessCost" />
+                <ScalarProperty Name="ExteraCost" ColumnName="ExteraCost" />
+                <ScalarProperty Name="GattotalCrop" ColumnName="GattotalCrop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FarmingSessionInfoes">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.FarmingSessionInfo">
+              <MappingFragment StoreEntitySet="FarmingSessionInfo">
+                <ScalarProperty Name="SessionInfoId" ColumnName="SessionInfoId" />
+                <ScalarProperty Name="SessionInfoName" ColumnName="SessionInfoName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FarmingTypes">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.FarmingType">
+              <MappingFragment StoreEntitySet="FarmingType">
+                <ScalarProperty Name="FarmingTypeId" ColumnName="FarmingTypeId" />
+                <ScalarProperty Name="FarmingTyeName" ColumnName="FarmingTyeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CombineAgricultureFarmModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CombineAgricultureFarmModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CombineAgricultureFarmModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CombineAgricultureFarmModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CombineAgricultureFarmModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CombineAgricultureFarmModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CombineAgricultureFarmModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CombineAgricultureFarmModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CombineAgricultureFarmModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

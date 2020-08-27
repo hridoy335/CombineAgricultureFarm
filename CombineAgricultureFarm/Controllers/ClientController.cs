@@ -66,7 +66,7 @@ namespace CombineAgricultureFarm.Controllers
             var logininfo = db.ClientInformations.Where(x => x.UserName == username && x.Password == password).FirstOrDefault();
             if (logininfo != null)
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "AdminHome");
             }
             else
             {

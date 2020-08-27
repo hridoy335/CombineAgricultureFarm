@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CombineAgricultureFarm.Models.FarmingType>
+
+@{
+    ViewBag.Title = "FarmType";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Farm Type Information</h2>
+
+<p>
+    @Html.ActionLink("Create New", "FarmTypeCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FarmingTyeName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FarmingTyeName)
+        </td>
+        <td>
+            @Html.ActionLink("Farm Type Update", "FarmTypeUpdated", new { id=item.FarmingTypeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FarmingTypeId })
+        </td>
+    </tr>
+}
+
+</table>

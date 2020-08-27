@@ -71,24 +71,21 @@
                         <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>SIDE PANEL</b></li>
                         @*<li class="list-group-item"><input type="text" class="form-control search-query" placeholder="Search Something"></li>*@
 
-                        <li class="list-group-item">@Html.ActionLink("Dashboard", "Index", "Home") </li>
+                        <li class="list-group-item">@Html.ActionLink("Dashboard", "Index", "AdminHome") </li>
 
                         <li>
-                            <a href="#demo4" class="list-group-item " data-toggle="collapse">Client <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a href="#demo4" class="list-group-item " data-toggle="collapse">Client Information<span class="glyphicon glyphicon-chevron-right"></span></a>
                             <ul class="collapse" id="demo4">
-                                <li class="list-group-item">@Html.ActionLink("Client Registration", "ClientRegistration", "Client")</li>
-                                <li class="list-group-item">@Html.ActionLink("Client Information", "ClientInformation", "Client")</li>
-                                @*<li class="list-group-item">@Html.ActionLink("Client Service Add", "ClientServicecAdd", "Client")</li>*@
-                                <li class="list-group-item">@Html.ActionLink("Client Service List", "ClientServiceList", "Client")</li>
+                                <li class="list-group-item">@Html.ActionLink("Client Information", "ClientInformation", "AdminClientInfo")</li>
+                                
                             </ul>
                         </li>
                         <li>
-                            <a href="#demo5" class="list-group-item " data-toggle="collapse">Employee <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a href="#demo5" class="list-group-item " data-toggle="collapse">Farming Information <span class="glyphicon glyphicon-chevron-right"></span></a>
                             <ul class="collapse" id="demo5">
-                                <li class="list-group-item">@Html.ActionLink("Employee Registration", "EmployeeRegistration", "Employee")</li>
-                                <li class="list-group-item">@Html.ActionLink("Employee Information", "EmployeeInformation", "Employee")</li>
-                                <li class="list-group-item">@Html.ActionLink("Designation Add", "DesignationAdd", "Employee")</li>
-                                <li class="list-group-item">@Html.ActionLink("Designation Information", "DesignationInformation", "Employee")</li>
+                                <li class="list-group-item">@Html.ActionLink("Farm type", "FarmType", "FarmInfo")</li>
+                                <li class="list-group-item">@Html.ActionLink("Farm Session Type", "FarmSessiontype", "FarmInfo")</li>
+                               
                             </ul>
                         </li>
                         <li>

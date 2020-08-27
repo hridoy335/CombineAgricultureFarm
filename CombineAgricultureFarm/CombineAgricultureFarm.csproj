@@ -128,9 +128,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminClientInfoController.cs" />
     <Compile Include="Controllers\AdminHomeController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ClientInformationsController.cs" />
+    <Compile Include="Controllers\FarmInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -305,6 +307,11 @@
     <Content Include="Views\Client\SignIn.cshtml" />
     <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
     <Content Include="Views\AdminHome\Index.cshtml" />
+    <Content Include="Views\AdminClientInfo\ClientInformation.cshtml" />
+    <Content Include="Views\AdminClientInfo\ClientInfoUpdate.cshtml" />
+    <Content Include="Views\FarmInfo\FarmType.cshtml" />
+    <Content Include="Views\FarmInfo\FarmTypeCreate.cshtml" />
+    <Content Include="Views\FarmInfo\FarmTypeUpdated.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

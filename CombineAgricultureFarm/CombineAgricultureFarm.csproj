@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminHomeController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ClientInformationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -302,6 +303,8 @@
     <Content Include="Views\ClientInformations\Index.cshtml" />
     <Content Include="Views\Client\SignUp.cshtml" />
     <Content Include="Views\Client\SignIn.cshtml" />
+    <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
+    <Content Include="Views\AdminHome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

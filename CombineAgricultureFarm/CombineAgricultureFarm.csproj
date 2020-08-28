@@ -132,6 +132,7 @@
     <Compile Include="Controllers\AdminHomeController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ClientInformationsController.cs" />
+    <Compile Include="Controllers\CropInformationController.cs" />
     <Compile Include="Controllers\FarmInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -312,6 +313,15 @@
     <Content Include="Views\FarmInfo\FarmType.cshtml" />
     <Content Include="Views\FarmInfo\FarmTypeCreate.cshtml" />
     <Content Include="Views\FarmInfo\FarmTypeUpdated.cshtml" />
+    <Content Include="Views\FarmInfo\FarmTypeDelete.cshtml" />
+    <Content Include="Views\FarmInfo\FarmSessiontype.cshtml" />
+    <Content Include="Views\FarmInfo\FarmingSessionCreate.cshtml" />
+    <Content Include="Views\FarmInfo\farmingSessionUpdate.cshtml" />
+    <Content Include="Views\FarmInfo\FarmingSessionDelete.cshtml" />
+    <Content Include="Views\CropInformation\CropInfo.cshtml" />
+    <Content Include="Views\CropInformation\CropInfoCreate.cshtml" />
+    <Content Include="Views\CropInformation\CropInfoUpdate.cshtml" />
+    <Content Include="Views\CropInformation\CropInfoDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

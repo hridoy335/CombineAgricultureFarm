@@ -27,7 +27,7 @@
           <Property Name="CropName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CropInformation" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CropMedicine" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="CropPicture" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CropPicture" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="CropSell">
           <Key>
@@ -281,7 +281,7 @@
           <Property Name="CropName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CropInformation1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CropMedicine" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CropPicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CropPicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_CropInformation" FromRole="CropInformation" ToRole="FarmInformation" />
         </EntityType>
         <EntityType Name="CropSell">

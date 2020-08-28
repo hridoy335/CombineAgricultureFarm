@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
 }
 
-<h2>FarmTypeUpdated</h2>
+<h2>Farm Type Information Updated</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>FarmingType</h4>
+        @*<h4>FarmingType</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(Model=> Model.FarmingTypeId)
@@ -33,5 +33,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "FarmType")
 </div>

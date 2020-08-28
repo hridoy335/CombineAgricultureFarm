@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CombineAgricultureFarm.Models.FarmingSessionInfo>
+
+@{
+    ViewBag.Title = "FarmSessiontype";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Farming Session type</h2>
+
+<p>
+    @Html.ActionLink("Create New", "FarmingSessionCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SessionInfoName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SessionInfoName)
+        </td>
+        <td>
+            @Html.ActionLink("Farming Session Update", "FarmingSessionUpdate", new { id=item.SessionInfoId }) |
+            @Html.ActionLink("Farming Session Delete", "FarmingSessionDelete", new { id=item.SessionInfoId })
+        </td>
+    </tr>
+}
+
+</table>

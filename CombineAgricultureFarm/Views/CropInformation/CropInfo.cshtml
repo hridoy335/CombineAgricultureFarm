@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CombineAgricultureFarm.Models.CropInformation>
+
+@{
+    ViewBag.Title = "CropInfo";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Crop Information</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CropInfoCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CropName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CropInformation1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CropMedicine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CropPicture)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CropName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CropInformation1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CropMedicine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CropPicture)
+        </td>
+        <td>
+            @Html.ActionLink("Crop Information Update", "CropInfoUpdate", new { id=item.CropInfod }) |
+            @Html.ActionLink("CropI nformation Delete", "CropInfoDelete", new { id=item.CropInfod })
+        </td>
+    </tr>
+}
+
+</table>

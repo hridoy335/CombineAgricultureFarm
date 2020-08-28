@@ -22,7 +22,7 @@
     <Property Name="CropName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="CropInformation" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="CropMedicine" Type="varchar" MaxLength="500" Nullable="false" />
-    <Property Name="CropPicture" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="CropPicture" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="CropSell">
     <Key>

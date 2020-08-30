@@ -17,7 +17,14 @@
           <Property Name="FurmName" Type="varchar" MaxLength="500" />
           <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="ClientType" Type="varchar" MaxLength="50" />
+          <Property Name="ClientTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="ClientType">
+          <Key>
+            <PropertyRef Name="ClientTypeId" />
+          </Key>
+          <Property Name="ClientTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientType" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="CropInformation">
           <Key>
@@ -100,6 +107,18 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <Association Name="FK_ClientInformation_ClientType">
+          <End Role="ClientType" Type="Self.ClientType" Multiplicity="0..1" />
+          <End Role="ClientInformation" Type="Self.ClientInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientType">
+              <PropertyRef Name="ClientTypeId" />
+            </Principal>
+            <Dependent Role="ClientInformation">
+              <PropertyRef Name="ClientTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CropSell_CropStorage">
           <End Role="CropStorage" Type="Self.CropStorage" Multiplicity="1" />
           <End Role="CropSell" Type="Self.CropSell" Multiplicity="*" />
@@ -124,7 +143,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FurmInformation_ClientInformation">
+        <Association Name="FK_FarmInformation_ClientInformation">
           <End Role="ClientInformation" Type="Self.ClientInformation" Multiplicity="1" />
           <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -217,6 +236,7 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CombineAgricultureFarmModelStoreContainer">
           <EntitySet Name="ClientInformation" EntityType="Self.ClientInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientType" EntityType="Self.ClientType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CropInformation" EntityType="Self.CropInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CropSell" EntityType="Self.CropSell" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CropStorage" EntityType="Self.CropStorage" Schema="dbo" store:Type="Tables" />
@@ -225,6 +245,10 @@
           <EntitySet Name="FarmingSessionInfo" EntityType="Self.FarmingSessionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FarmingType" EntityType="Self.FarmingType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClientInformation_ClientType" Association="Self.FK_ClientInformation_ClientType">
+            <End Role="ClientType" EntitySet="ClientType" />
+            <End Role="ClientInformation" EntitySet="ClientInformation" />
+          </AssociationSet>
           <AssociationSet Name="FK_CropSell_CropStorage" Association="Self.FK_CropSell_CropStorage">
             <End Role="CropStorage" EntitySet="CropStorage" />
             <End Role="CropSell" EntitySet="CropSell" />
@@ -233,7 +257,7 @@
             <End Role="FarmingDetailforCrop" EntitySet="FarmingDetailforCrop" />
             <End Role="CropStorage" EntitySet="CropStorage" />
           </AssociationSet>
-          <AssociationSet Name="FK_FurmInformation_ClientInformation" Association="Self.FK_FurmInformation_ClientInformation">
+          <AssociationSet Name="FK_FarmInformation_ClientInformation" Association="Self.FK_FarmInformation_ClientInformation">
             <End Role="ClientInformation" EntitySet="ClientInformation" />
             <End Role="FarmInformation" EntitySet="FarmInformation" />
           </AssociationSet>
@@ -271,7 +295,8 @@
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_ClientInformation" FromRole="ClientInformation" ToRole="FarmInformation" />
-          <Property Name="ClientType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientTypeId" Type="Int32" />
+          <NavigationProperty Name="ClientType1" Relationship="CombineAgricultureFarmModel.FK_ClientInformation_ClientType" FromRole="ClientInformation" ToRole="ClientType" />
         </EntityType>
         <EntityType Name="CropInformation">
           <Key>
@@ -519,6 +544,11 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="ClientTypes" EntityType="CombineAgricultureFarmModel.ClientType" />
+          <AssociationSet Name="FK_ClientInformation_ClientType" Association="CombineAgricultureFarmModel.FK_ClientInformation_ClientType">
+            <End Role="ClientType" EntitySet="ClientTypes" />
+            <End Role="ClientInformation" EntitySet="ClientInformations" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -531,6 +561,26 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="ClientType">
+          <Key>
+            <PropertyRef Name="ClientTypeId" />
+          </Key>
+          <Property Name="ClientTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientType1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClientInformations" Relationship="CombineAgricultureFarmModel.FK_ClientInformation_ClientType" FromRole="ClientType" ToRole="ClientInformation" />
+        </EntityType>
+        <Association Name="FK_ClientInformation_ClientType">
+          <End Type="CombineAgricultureFarmModel.ClientType" Role="ClientType" Multiplicity="0..1" />
+          <End Type="CombineAgricultureFarmModel.ClientInformation" Role="ClientInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientType">
+              <PropertyRef Name="ClientTypeId" />
+            </Principal>
+            <Dependent Role="ClientInformation">
+              <PropertyRef Name="ClientTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -540,7 +590,7 @@
           <EntitySetMapping Name="ClientInformations">
             <EntityTypeMapping TypeName="CombineAgricultureFarmModel.ClientInformation">
               <MappingFragment StoreEntitySet="ClientInformation">
-                <ScalarProperty Name="ClientType" ColumnName="ClientType" />
+                <ScalarProperty Name="ClientTypeId" ColumnName="ClientTypeId" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="ClientName" ColumnName="ClientName" />
                 <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
@@ -665,6 +715,14 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CombineAgricultureFarmModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CombineAgricultureFarmModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="ClientTypes">
+            <EntityTypeMapping TypeName="CombineAgricultureFarmModel.ClientType">
+              <MappingFragment StoreEntitySet="ClientType">
+                <ScalarProperty Name="ClientType1" ColumnName="ClientType" />
+                <ScalarProperty Name="ClientTypeId" ColumnName="ClientTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

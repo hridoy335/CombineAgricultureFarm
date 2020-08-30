@@ -36,6 +36,7 @@ namespace CombineAgricultureFarm.Models
         public virtual DbSet<FarmingSessionInfo> FarmingSessionInfoes { get; set; }
         public virtual DbSet<FarmingType> FarmingTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<ClientType> ClientTypes { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -13,7 +13,8 @@
     <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="FarmInformations" Relationship="Self.FK_FurmInformation_ClientInformation" FromRole="ClientInformation" ToRole="FarmInformation" />
-    <Property Name="ClientType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ClientTypeId" Type="Int32" />
+    <NavigationProperty Name="ClientType1" Relationship="CombineAgricultureFarmModel.FK_ClientInformation_ClientType" FromRole="ClientInformation" ToRole="ClientType" />
   </EntityType>
   <EntityType Name="CropInformation">
     <Key>
@@ -261,6 +262,11 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="ClientTypes" EntityType="CombineAgricultureFarmModel.ClientType" />
+    <AssociationSet Name="FK_ClientInformation_ClientType" Association="CombineAgricultureFarmModel.FK_ClientInformation_ClientType">
+      <End Role="ClientType" EntitySet="ClientTypes" />
+      <End Role="ClientInformation" EntitySet="ClientInformations" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -273,4 +279,24 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="ClientType">
+    <Key>
+      <PropertyRef Name="ClientTypeId" />
+    </Key>
+    <Property Name="ClientTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientType1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ClientInformations" Relationship="CombineAgricultureFarmModel.FK_ClientInformation_ClientType" FromRole="ClientType" ToRole="ClientInformation" />
+  </EntityType>
+  <Association Name="FK_ClientInformation_ClientType">
+    <End Type="CombineAgricultureFarmModel.ClientType" Role="ClientType" Multiplicity="0..1" />
+    <End Type="CombineAgricultureFarmModel.ClientInformation" Role="ClientInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientType">
+        <PropertyRef Name="ClientTypeId" />
+      </Principal>
+      <Dependent Role="ClientInformation">
+        <PropertyRef Name="ClientTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

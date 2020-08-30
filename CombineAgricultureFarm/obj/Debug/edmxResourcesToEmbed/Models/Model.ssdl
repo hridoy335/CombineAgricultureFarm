@@ -12,7 +12,14 @@
     <Property Name="FurmName" Type="varchar" MaxLength="500" />
     <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
-    <Property Name="ClientType" Type="varchar" MaxLength="50" />
+    <Property Name="ClientTypeId" Type="int" />
+  </EntityType>
+  <EntityType Name="ClientType">
+    <Key>
+      <PropertyRef Name="ClientTypeId" />
+    </Key>
+    <Property Name="ClientTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientType" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="CropInformation">
     <Key>
@@ -95,6 +102,18 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <Association Name="FK_ClientInformation_ClientType">
+    <End Role="ClientType" Type="Self.ClientType" Multiplicity="0..1" />
+    <End Role="ClientInformation" Type="Self.ClientInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientType">
+        <PropertyRef Name="ClientTypeId" />
+      </Principal>
+      <Dependent Role="ClientInformation">
+        <PropertyRef Name="ClientTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CropSell_CropStorage">
     <End Role="CropStorage" Type="Self.CropStorage" Multiplicity="1" />
     <End Role="CropSell" Type="Self.CropSell" Multiplicity="*" />
@@ -119,7 +138,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_FurmInformation_ClientInformation">
+  <Association Name="FK_FarmInformation_ClientInformation">
     <End Role="ClientInformation" Type="Self.ClientInformation" Multiplicity="1" />
     <End Role="FarmInformation" Type="Self.FarmInformation" Multiplicity="*" />
     <ReferentialConstraint>
@@ -212,6 +231,7 @@
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="CombineAgricultureFarmModelStoreContainer">
     <EntitySet Name="ClientInformation" EntityType="Self.ClientInformation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientType" EntityType="Self.ClientType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CropInformation" EntityType="Self.CropInformation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CropSell" EntityType="Self.CropSell" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CropStorage" EntityType="Self.CropStorage" Schema="dbo" store:Type="Tables" />
@@ -220,6 +240,10 @@
     <EntitySet Name="FarmingSessionInfo" EntityType="Self.FarmingSessionInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FarmingType" EntityType="Self.FarmingType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ClientInformation_ClientType" Association="Self.FK_ClientInformation_ClientType">
+      <End Role="ClientType" EntitySet="ClientType" />
+      <End Role="ClientInformation" EntitySet="ClientInformation" />
+    </AssociationSet>
     <AssociationSet Name="FK_CropSell_CropStorage" Association="Self.FK_CropSell_CropStorage">
       <End Role="CropStorage" EntitySet="CropStorage" />
       <End Role="CropSell" EntitySet="CropSell" />
@@ -228,7 +252,7 @@
       <End Role="FarmingDetailforCrop" EntitySet="FarmingDetailforCrop" />
       <End Role="CropStorage" EntitySet="CropStorage" />
     </AssociationSet>
-    <AssociationSet Name="FK_FurmInformation_ClientInformation" Association="Self.FK_FurmInformation_ClientInformation">
+    <AssociationSet Name="FK_FarmInformation_ClientInformation" Association="Self.FK_FarmInformation_ClientInformation">
       <End Role="ClientInformation" EntitySet="ClientInformation" />
       <End Role="FarmInformation" EntitySet="FarmInformation" />
     </AssociationSet>

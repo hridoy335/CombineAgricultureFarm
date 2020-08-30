@@ -12,26 +12,18 @@ namespace CombineAgricultureFarm.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ClientInformation
+    public partial class ClientType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ClientInformation()
+        public ClientType()
         {
-            this.FarmInformations = new HashSet<FarmInformation>();
+            this.ClientInformations = new HashSet<ClientInformation>();
         }
     
-        public int ClientId { get; set; }
-        public string ClientName { get; set; }
-        public string ClientEmail { get; set; }
-        public string ClientMobile { get; set; }
-        public string ClientAddress { get; set; }
-        public string FurmName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public Nullable<int> ClientTypeId { get; set; }
+        public int ClientTypeId { get; set; }
+        public string ClientType1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FarmInformation> FarmInformations { get; set; }
-        public virtual ClientType ClientType1 { get; set; }
+        public virtual ICollection<ClientInformation> ClientInformations { get; set; }
     }
 }
